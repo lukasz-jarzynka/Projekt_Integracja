@@ -1,45 +1,46 @@
 {% extends "base.html.twig" %}
 {% block title %} Indexy {% endblock %}
 
+{#
+foreach ($dane as $indeks => $wartosc) {
+    if ($wartosc->getDescription() == '217230'){
+        $inflacjaRok = $wartosc->getYear();
+        $inflacjaId = $wartosc->getDescription();
+        $inflacjaWartosc = $wartosc->getDataValue();
+    }
+}
+#}
+
 {% block body %}
     <table style="border-collapse: collapse; border: 2px solid black;">
         <tr>
             <th style="border: 1px solid black; padding: 8px;">Rok</th>
-            <th style="border: 1px solid black; padding: 8px;">Wysokość płacy minimalnej</th>
             <th style="border: 1px solid black; padding: 8px;">Przeciętne miesięczne wynagrodzenia brutto</th>
             <th style="border: 1px solid black; padding: 8px;">Wskaźnik cen towarów i usług konsumpcyjnych (pot. inflacja)</th>
+            <th style="border: 1px solid black; padding: 8px;">Przeciętna miesięczna emerytura z pozarolniczego systemu ubezpieczeń społecznych</th>
             <th style="border: 1px solid black; padding: 8px;">Produkt krajowy brutto na 1 mieszkańca</th>
         </tr>
-        <tr>
-            <td style="border: 1px solid black; padding: 8px; text-align: center;">2007</td>
-            <td style="border: 1px solid black; padding: 8px; text-align: center;">936,00 zł</td>
-            <td style="border: 1px solid black; padding: 8px; text-align: center;">Wiersz 1, k3</td>
-            <td style="border: 1px solid black; padding: 8px; text-align: center;">Wiersz 1, k4</td>
-            <td style="border: 1px solid black; padding: 8px; text-align: center;">Wiersz 1, k5</td>
-        </tr>
-        <tr>
-            <td style="border: 1px solid black; padding: 8px; text-align: center;">2008</td>
-            <td style="border: 1px solid black; padding: 8px; text-align: center;">1 126,00 zł</td>
-            <td style="border: 1px solid black; padding: 8px; text-align: center;">Wiersz 2, k3</td>
-            <td style="border: 1px solid black; padding: 8px; text-align: center;">Wiersz 2, k4</td>
-            <td style="border: 1px solid black; padding: 8px; text-align: center;">Wiersz 2, k5</td>
-        </tr>
-        <tr>
-            <td style="border: 1px solid black; padding: 8px; text-align: center;">2019</td>
-            <td style="border: 1px solid black; padding: 8px; text-align: center;">2 250,00 zł</td>
-            <td style="border: 1px solid black; padding: 8px; text-align: center;">Wiersz 3, k3</td>
-            <td style="border: 1px solid black; padding: 8px; text-align: center;">Wiersz 3, k4</td>
-            <td style="border: 1px solid black; padding: 8px; text-align: center;">Wiersz 3, k5</td>
-        </tr>
-        <tr>
-            {% for item in items %}
-                <td style="border: 1px solid black; padding: 8px; text-align: center;">{{ item['year'] }}</td>
-                <td style="border: 1px solid black; padding: 8px; text-align: center;">2 800,00 zł</td>
-                <td style="border: 1px solid black; padding: 8px; text-align: center;">Wiersz 4, k3</td>
-                <td style="border: 1px solid black; padding: 8px; text-align: center;">{{ item['val'] }}</td>
-                <td style="border: 1px solid black; padding: 8px; text-align: center;">Wiersz 4, k5</td>
-            {% endfor %}
-        </tr>
+            {% set flaga = true %}
+        {% for wartosc in dane %}
+                {% if wartosc.getYear() == '2007' %}
+                        {% if flaga %}
+                         <td style="border: 1px solid black; padding: 8px; text-align: center;">{{ wartosc.year }}</td>
+                        {% endif %}
+                    {% set flaga = false %}
+                    {% if wartosc.description == '64428' %}
+                        <td style="border: 1px solid black; padding: 8px; text-align: center;">{{ wartosc.dataValue }}</td>
+                    {% endif %}
+                    {% if wartosc.description == '217230' %}
+                        <td style="border: 1px solid black; padding: 8px; text-align: center;">{{ wartosc.dataValue }}</td>
+                    {% endif %}
+                    {% if wartosc.description == '155058' %}
+                        <td style="border: 1px solid black; padding: 8px; text-align: center;">{{ wartosc.dataValue }}</td>
+                    {% endif %}
+                    {% if wartosc.description == '458421' %}
+                        <td style="border: 1px solid black; padding: 8px; text-align: center;">{{ wartosc.dataValue }}</td>
+                    {% endif %}
+                {% endif %}
+        {% endfor %}
     </table>
 
 {% endblock %}

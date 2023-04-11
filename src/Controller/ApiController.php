@@ -2,24 +2,27 @@
 
 namespace App\Controller;
 
+use App\Entity\XmlDataResult;
+use App\Repository\XmlDataResultRepository;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Console\Application;
-use App\Api\ApiClient;
-use App\Model\SingleUnitData;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\ArrayInput;
 use Symfony\Component\Console\Output\BufferedOutput;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\KernelInterface;
-use Symfony\Component\PropertyInfo\Extractor\ReflectionExtractor;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\Serializer\Encoder\XmlEncoder;
-use Symfony\Component\Serializer\Normalizer\ArrayDenormalizer;
-use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
-use Symfony\Component\Serializer\Serializer;
 
 class ApiController extends AbstractController
 {
+
+    public function __construct( private EntityManagerInterface $entityManager, private XmlDataResultRepository $xmlDataResultRepository)
+    {
+        $this->entityManager = $entityManager;
+        $this->xmlDataResultRepository = $xmlDataResultRepository;
+    }
+
+
     #[Route('/command', name: 'command')]
     public function debug(KernelInterface $kernel): Response
     {
@@ -44,8 +47,11 @@ class ApiController extends AbstractController
     #[Route('/api', name: 'api')]
     public function index(): Response
     {
+        $repo = $this->entityManager->getRepository(XmlDataResult::class);
+        $dane = $repo->findAll();
+
         return $this->render('Project/homepage.html.twig', [
-            'items' => [],
+            'dane' => $dane,
         ]);
     }
 }
