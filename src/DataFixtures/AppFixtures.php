@@ -14,12 +14,12 @@ class AppFixtures extends Fixture
 
         //Wskaźnik cen towarów i usług konsumpcyjnych (pot. inflacja)
         $inflacjaApi1 = new GetXmlData();
-        $inflacjaApi1->setUrl('https://bdl.stat.gov.pl/api/v1/data/by-unit/000000000000?format=xml&var-id=217230&year=2007');
+        $inflacjaApi1->setUrl('https://bdl.stat.gov.pl/api/v1/data/by-unit/000000000000?format=xml&var-id=217230&year=2006');
         $inflacjaApi1->setTsLastDownload($date);
         $inflacjaApi1->setDescription('Inflacja');
 
         $inflacjaApi2 = new GetXmlData();
-        $inflacjaApi2->setUrl('https://bdl.stat.gov.pl/api/v1/data/by-unit/000000000000?format=xml&var-id=217230&year=2008');
+        $inflacjaApi2->setUrl('https://bdl.stat.gov.pl/api/v1/data/by-unit/000000000000?format=xml&var-id=217230&year=2010');
         $inflacjaApi2->setTsLastDownload($date);
         $inflacjaApi2->setDescription('Inflacja');
 
@@ -35,12 +35,12 @@ class AppFixtures extends Fixture
 
         //Przeciętne miesięczne wynagrodzenia brutto
         $przecietneWynagrodzenieApi1 = new GetXmlData();
-        $przecietneWynagrodzenieApi1->setUrl('https://bdl.stat.gov.pl/api/v1/data/by-unit/000000000000?format=xml&var-id=64428&year=2007');
+        $przecietneWynagrodzenieApi1->setUrl('https://bdl.stat.gov.pl/api/v1/data/by-unit/000000000000?format=xml&var-id=64428&year=2006');
         $przecietneWynagrodzenieApi1->setTsLastDownload($date);
         $przecietneWynagrodzenieApi1->setDescription('Przeciętne miesięczne wynagrodzenia brutto');
 
         $przecietneWynagrodzenieApi2 = new GetXmlData();
-        $przecietneWynagrodzenieApi2->setUrl('https://bdl.stat.gov.pl/api/v1/data/by-unit/000000000000?format=xml&var-id=64428&year=2008');
+        $przecietneWynagrodzenieApi2->setUrl('https://bdl.stat.gov.pl/api/v1/data/by-unit/000000000000?format=xml&var-id=64428&year=2010');
         $przecietneWynagrodzenieApi2->setTsLastDownload($date);
         $przecietneWynagrodzenieApi2->setDescription('Przeciętne miesięczne wynagrodzenia brutto');
 
@@ -56,12 +56,12 @@ class AppFixtures extends Fixture
 
         //Przeciętna emerytura z pozarolniczego systemu ubezpieczeń społecznych emerytury
         $przecietnaEmeryturaApi1 = new GetXmlData();
-        $przecietnaEmeryturaApi1->setUrl('https://bdl.stat.gov.pl/api/v1/data/by-unit/000000000000?format=xml&var-id=155058&year=2007');
+        $przecietnaEmeryturaApi1->setUrl('https://bdl.stat.gov.pl/api/v1/data/by-unit/000000000000?format=xml&var-id=155058&year=2006');
         $przecietnaEmeryturaApi1->setTsLastDownload($date);
         $przecietnaEmeryturaApi1->setDescription('Przeciętne emerytura');
 
         $przecietnaEmeryturaApi2 = new GetXmlData();
-        $przecietnaEmeryturaApi2->setUrl('https://bdl.stat.gov.pl/api/v1/data/by-unit/000000000000?format=xml&var-id=155058&year=2008');
+        $przecietnaEmeryturaApi2->setUrl('https://bdl.stat.gov.pl/api/v1/data/by-unit/000000000000?format=xml&var-id=155058&year=2010');
         $przecietnaEmeryturaApi2->setTsLastDownload($date);
         $przecietnaEmeryturaApi2->setDescription('Przeciętne emerytura');
 
@@ -77,12 +77,12 @@ class AppFixtures extends Fixture
 
         //PKB na 1 mieszkańca (zł)
         $pkbApi1 = new GetXmlData();
-        $pkbApi1->setUrl('https://bdl.stat.gov.pl/api/v1/data/by-unit/000000000000?format=xml&var-id=458421&year=2007');
+        $pkbApi1->setUrl('https://bdl.stat.gov.pl/api/v1/data/by-unit/000000000000?format=xml&var-id=458421&year=2006');
         $pkbApi1->setTsLastDownload($date);
         $pkbApi1->setDescription('PKB na 1 mieszkańca');
 
         $pkbApi2 = new GetXmlData();
-        $pkbApi2->setUrl('https://bdl.stat.gov.pl/api/v1/data/by-unit/000000000000?format=xml&var-id=458421&year=2008');
+        $pkbApi2->setUrl('https://bdl.stat.gov.pl/api/v1/data/by-unit/000000000000?format=xml&var-id=458421&year=2010');
         $pkbApi2->setTsLastDownload($date);
         $pkbApi2->setDescription('PKB na 1 mieszkańca');
 
@@ -100,15 +100,15 @@ class AppFixtures extends Fixture
         $minimalne1->setUrl('');
         $minimalne1->setTsLastDownload(new \DateTime());
         $minimalne1->setDescription('Minimalne wynagrodzenie');
-        $minimalne1->setYear(2007);
-        $minimalne1->setDataValue(936.0);
+        $minimalne1->setYear(2006);
+        $minimalne1->setDataValue(899);
 
         $minimalne2 = new GetXmlData();
         $minimalne2->setUrl('');
         $minimalne2->setTsLastDownload(new \DateTime());
         $minimalne2->setDescription('Minimalne wynagrodzenie');
-        $minimalne2->setYear(2008);
-        $minimalne2->setDataValue(1126.0);
+        $minimalne2->setYear(2010);
+        $minimalne2->setDataValue(1317.0);
 
         $minimalne3 = new GetXmlData();
         $minimalne3->setUrl('');

@@ -5,9 +5,41 @@
 {% block stylesheets %}
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
     <style>
+        :root {
+            --primary-color: #34495E;
+            --secondary-color: #34495E;
+            --bg-color: #f2f2f2;
+            --text-color: #2C3E50;
+        }
+
+        /* Body */
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+        }
+
+        .card {
+            border: none;
+            border-radius: 8px;
+            box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.1);
+            margin-bottom: 30px;
+        }
+        .card-header {
+            background-color: var(--secondary-color);
+            color: #fff;
+            font-weight: bold;
+            text-align: center;
+            border-radius: 8px 8px 0px 0px;
+            padding: 20px;
+        }
+        .card-body {
+            padding: 20px;
+        }
+
         .author {
             font-size: 1.2rem;
             font-weight: bold;
+            text-align: center;
         }
         .author-icon {
             font-size: 2rem;
@@ -22,43 +54,42 @@
 {% endblock %}
 
 {% block body %}
-    <div class="container">
-        <div class="row justify-content-center">
-            <div class="col-md-8">
-                <div class="card my-5">
-                    <div class="card-header text-center">
-                        <h1>Integracja Systemów - Projekt</h1>
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card my-5">
+                <div class="card-header text-center">
+                    <h1>Integracja Systemów - Projekt</h1>
+                </div>
+                <div class="card-body">
+                    <p class="card-text">Autorzy projektu:</p>
+                    <div class="row">
+                        <div class="col-md-4 text-center">
+                            <i class="bi bi-person-circle author-icon"></i>
+                            <p class="author">Łukasz Jarzynka</p>
+                        </div>
+                        <div class="col-md-4 text-center">
+                            <i class="bi bi-person-circle author-icon"></i>
+                            <p class="author">Wojciech Lasota</p>
+                        </div>
+                        <div class="col-md-4 text-center">
+                            <i class="bi bi-person-circle author-icon"></i>
+                            <p class="author">Kacper Chałupka</p>
+                        </div>
                     </div>
-                    <div class="card-body">
-                        <p class="card-text">Autorzy projektu:</p>
-                        <div class="row">
-                            <div class="col-md-4 text-center">
-                                <i class="bi bi-person-circle author-icon"></i>
-                                <p class="author">Łukasz Jarzynka</p>
-                            </div>
-                            <div class="col-md-4 text-center">
-                                <i class="bi bi-person-circle author-icon"></i>
-                                <p class="author">Wojciech Lasota</p>
-                            </div>
-                            <div class="col-md-4 text-center">
-                                <i class="bi bi-person-circle author-icon"></i>
-                                <p class="author">Kacper Chałupka</p>
-                            </div>
-                        </div>
-                        <hr>
-                        <p class="card-text">Temat nr 10: Zestawienie wysokości płacy minimalnej, średnich zarobków, emerytur i innych świadczeń, z danymi na temat inflacji, PKB itp. opatrzone komunikatami prasowymi, informacjami o wydarzeniach krajowych i zagranicznych itp. Podział na okresy, filtracja według typu świadczenia itp.</p>
-                        <hr>
-                        <p class="info-text">Kliknij przycisk poniżej, aby zapisać dane do bazy danych.</p>
-                        <div class="d-grid gap-2">
-                            <a href="{{ url('app_load_data') }}" class="btn btn-primary">Zapisz dane do bazy danych</a>
-                        </div>
+                    <hr>
+                    <p class="card-text">Temat nr 10: Zestawienie wysokości płacy minimalnej, średnich zarobków, emerytur i innych świadczeń, z danymi na temat inflacji, PKB itp. opatrzone komunikatami prasowymi, informacjami o wydarzeniach krajowych i zagranicznych itp. Podział na okresy, filtracja według typu świadczenia itp.</p>
+                    <hr>
+                    <p class="info-text">Kliknij przycisk poniżej, aby zapisać dane do bazy danych.</p>
+                    <div class="d-grid gap-2">
+                        <a href="{{ url('app_load_data') }}" class="btn btn-primary">Zapisz dane do bazy danych</a>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+</div>
 {% endblock %}
-
 {% block javascripts %}
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.7/dist/umd/popper.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.min.js"></script>
