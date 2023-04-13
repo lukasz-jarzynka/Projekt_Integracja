@@ -15,8 +15,7 @@ use Symfony\Component\Serializer\Encoder\XmlEncoder;
 use Symfony\Component\Serializer\Normalizer\ArrayDenormalizer;
 use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
 use Symfony\Component\Serializer\Serializer;
-use Symfony\Contracts\HttpClient\Exception\TransportExceptionInterface;
-use App\Entity\XmlDataResult;
+use Psr\Log\LoggerInterface;
 
 #[AsCommand(
     name: 'app:fetch-api',
@@ -25,19 +24,27 @@ use App\Entity\XmlDataResult;
 )]
 class FetchApi extends Command
 {
-
-    public function __construct(private ApiClient $apiClient, private GetXmlDataRepository $getXmlDataRepository, private EntityManagerInterface $entityManager)
+    public function __construct(private ApiClient $apiClient, private GetXmlDataRepository $getXmlDataRepository, private EntityManagerInterface $entityManager, private LoggerInterface $logger)
     {
         parent::__construct();
     }
 
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
+        $this->performFetch();
+        return Command::SUCCESS;
+    }
+
+    public function performFetch(): void
+    {
         $getXmlData = $this->getXmlDataRepository->getForImportWhenNull();
 
         if (!$getXmlData) {
-            return Command::SUCCESS;
+            $this->logger->info('There is no data to import.');
+            return;
         }
+
+        $this->logger->info('Starting import.');
 
         $url = $getXmlData->getUrl();
         // Pobierz dane z API
@@ -60,25 +67,18 @@ class FetchApi extends Command
         /** @var $singleUnitData SingleUnitData */
         $singleUnitData = $serializer->deserialize($xmlData, SingleUnitData::class, 'xml');
 
-
         // Wyciaganie danych z XMLa i przypisywanie ich do zmiennych :
         $year = $singleUnitData->getResults()["variableData"]["values"]["yearVal"]["year"];
         $value = $singleUnitData->getResults()["variableData"]["values"]["yearVal"]["val"];
         $id_gus = $singleUnitData->getResults()["variableData"]["id"];
 
-        // Tworzenie nowego obiektu XmlDataResult i ustawianie wartości atrybutów
-        $xmlDataResult = new XmlDataResult();
-        $xmlDataResult->setYear($year);
-        $xmlDataResult->setDataValue($value);
-        $xmlDataResult->setDescription($id_gus);
+        $getXmlData->setYear($year);
+        $getXmlData->setDataValue($value);
+        $getXmlData->setExternalId($id_gus);
 
-        // Dodawanie obiektu XmlDataResult do bazy danych
-        $xmlDataResult->setGetXmlData($getXmlData);
-        $this->entityManager->persist($xmlDataResult);
+        $this->entityManager->persist($getXmlData);
         $this->entityManager->flush();
 
-        return Command::SUCCESS;
-
+        $this->logger->info('Data imported successfully.');
     }
-
 }

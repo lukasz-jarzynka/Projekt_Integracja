@@ -12,6 +12,13 @@ class ProjectController extends AbstractController
     public function homepage(): Response
     {
 
-        return $this->render('Project/homepage.html.twig');
+        return $this->render('Project/welcomePage.html.twig');
     }
+
+    #[Route('/info', name: "app_info")]
+    public function index(): Response
+    {
+        return $this->render('Project/projectInfo.html.twig');
+    }
+
 }

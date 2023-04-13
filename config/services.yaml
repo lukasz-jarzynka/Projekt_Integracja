@@ -20,6 +20,13 @@ services:
             - '../src/Entity/'
             - '../src/Kernel.php'
     App\src\Api\ApiClient: ~
+    App\Service\LoadDataService:
+        arguments:
+            - '@App\DataFixtures\AppFixtures'
+            - '@doctrine.orm.entity_manager'
+    App\Service\FetchApiService:
+        arguments:
+            $fetchApi: '@App\Command\FetchApi'
 
     # add more service definitions when explicit configuration is needed
     # please note that last definitions always *replace* previous ones

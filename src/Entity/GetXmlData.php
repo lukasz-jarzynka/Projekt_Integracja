@@ -19,11 +19,84 @@ class GetXmlData
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $url = null;
 
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $description = null;
+
+    #[ORM\Column(nullable: true)]
+    private ?int $year = null;
+
+    #[ORM\Column(type: Types::TEXT, nullable: true)]
+    private ?string $externalId = null;
+
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $dataValue = null;
+
     #[ORM\Column(type: Types::DATETIME_MUTABLE, nullable: true)]
     private ?\DateTimeInterface $ts_last_download = null;
 
-    #[ORM\OneToMany(mappedBy: 'getXmlData', targetEntity: XmlDataResult::class)]
-    private Collection $XmlData;
+    /**
+     * @return int|null
+     */
+    public function getYear(): ?int
+    {
+        return $this->year;
+    }
+
+    /**
+     * @param int|null $year
+     */
+    public function setYear(?int $year): void
+    {
+        $this->year = $year;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getExternalId(): ?string
+    {
+        return $this->externalId;
+    }
+
+    /**
+     * @param string|null $externalId
+     */
+    public function setExternalId(?string $externalId): void
+    {
+        $this->externalId = $externalId;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getDataValue(): ?string
+    {
+        return $this->dataValue;
+    }
+
+    /**
+     * @param string|null $dataValue
+     */
+    public function setDataValue(?string $dataValue): void
+    {
+        $this->dataValue = $dataValue;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getDescription(): ?string
+    {
+        return $this->description;
+    }
+
+    /**
+     * @param string|null $description
+     */
+    public function setDescription(?string $description): void
+    {
+        $this->description = $description;
+    }
 
     public function __construct()
     {
@@ -59,33 +132,4 @@ class GetXmlData
         return $this;
     }
 
-    /**
-     * @return Collection<int, XmlDataResult>
-     */
-    public function getXmlData(): Collection
-    {
-        return $this->XmlData;
-    }
-
-    public function addXmlData(XmlDataResult $xmlData): self
-    {
-        if (!$this->XmlData->contains($xmlData)) {
-            $this->XmlData->add($xmlData);
-            $xmlData->setGetXmlData($this);
-        }
-
-        return $this;
-    }
-
-    public function removeXmlData(XmlDataResult $xmlData): self
-    {
-        if ($this->XmlData->removeElement($xmlData)) {
-            // set the owning side to null (unless already changed)
-            if ($xmlData->getGetXmlData() === $this) {
-                $xmlData->setGetXmlData(null);
-            }
-        }
-
-        return $this;
-    }
 }
